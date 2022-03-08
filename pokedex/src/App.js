@@ -28,10 +28,10 @@ const App = () => {
       });
     }
     createPokemonObject(data.results);
-    console.log(data);
+    // console.log(data);
   };
   const changeTheme = () => {
-    var element = document.body;
+    let element = document.body;
     element.classList.toggle("dark-mode");
   };
   useEffect(() => {
@@ -39,19 +39,19 @@ const App = () => {
   }, []);
   return (
     <div className="container">
-      <button onClick={() => changeTheme()}>Dark Mode</button>
+      <button className="themeButton" onClick={() => changeTheme()}>Dark Mode</button>
       <img
         className="logo"
         src="https://images.wikidexcdn.net/mwuploads/esssbwiki/7/77/latest/20111028181540/TituloUniversoPok%C3%A9mon.png"
       />
       <div className="pokemon-container">
         <div className="all-container">
-          {allPokemons.map((pokemonStats) => {
+          {allPokemons.map((pokemonStats, index) => {
             const isExpanded = selectedPokemonId === pokemonStats.id;
             return (
               <>
                 <PokemonThumb
-                  key={pokemonStats.id}
+                  key={index}
                   id={pokemonStats.id}
                   image={pokemonStats.sprites.other.dream_world.front_default}
                   name={pokemonStats.name}

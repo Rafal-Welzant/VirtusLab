@@ -1,6 +1,6 @@
 import React from 'react'
 
-const PokemonThumb = ({id, image, name, type, weight, height, isExpanded, toggleDetailsId, }) => {
+const PokemonThumb = ({id, image, name, type, isExpanded, toggleDetailsId, }) => {
     
     
     
@@ -14,7 +14,7 @@ const PokemonThumb = ({id, image, name, type, weight, height, isExpanded, toggle
                 <h3>{name}</h3>
                 <small>Type: {type}</small>  
                 <button onClick={() => toggleDetailsId(id)}>
-                  {!isExpanded ? "Show details" : "Hide details"}
+                  {!isExpanded ? "Show stats" : "Hide stats"}
                 </button>
             </div>
         </div>

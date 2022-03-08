@@ -8,12 +8,12 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: black;
-  color: white;
+  background-color: white;
+  color: red;
 }
 .dark-mode {
-  background-color: white;
-  color: black;
+  background-color: black;
+  color: red;
 }
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
@@ -21,9 +21,9 @@ code {
 }
 
 .container {
-  width: 600px;
+  width: 120vh;
   min-height: 100vh;
-  background-color: blue;
+  background-color: rgb(99, 99, 224);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -64,6 +64,10 @@ code {
 }
 .water {
   background-color: #e0f1fd;
+}
+
+.ground {
+  background-color: rgb(136, 41, 41);
 }
 
 .pokemon-container {
@@ -132,16 +136,32 @@ h3 {
 
 .dialog {
   position: fixed;
-  top: 20vh;
-  bottom: 20vh;
-  width: 30vw;
+  top: 10vh;
+  bottom: 10vh;
+  width: 25vw;
 }
 
 .details {
   position: fixed;
   inset: 0px;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
-.img {
+.themeButton {
+  /* background-color: var(--accet-color); */
+  color: var(--background-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 0.5em 1em;
+  border-radius: 0.3em;
+  border: none;
+  outline: none;
+  transition: var(--transition-delay);
+}
+
+.theme-toggle-button:hover,
+.theme-toggle-button:focus {
+  transform: scale(1.1);
 }
