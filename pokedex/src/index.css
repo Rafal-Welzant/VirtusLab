@@ -138,12 +138,12 @@ h3 {
   position: fixed;
   top: 10vh;
   bottom: 10vh;
-  width: 25vw;
+  width: 15vw;
 }
 
 .img {
-  width: 10vw;
-  height: 10vh;
+  width: 15vw;
+  height: 15vh;
 }
 
 .details {
