@@ -1,23 +1,32 @@
 import React, { Fragment, useEffect, useState } from "react";
 import PokemonThumb from "./components/PokemonThumb";
 
+type Pokemon = {
+  id: number;
+  sprites: { other: { dream_world: { front_default: string } } }
+  name: string;
+  types: Array<{ type: { name: string } } >
+  weight: number;
+  height: number;
+}
+
 const App = () => {
-  const [selectedPokemonId, setSelectedPokemonId] = useState(null);
-  const toggleDetailsId = (id) => {
+  const [selectedPokemonId, setSelectedPokemonId] = useState<null | number>(null);
+  const toggleDetailsId = (id: number) => {
     setSelectedPokemonId((oldId) => (oldId === id ? null : id));
   };
-  const [allPokemons, setAllPokemons] = useState([]);
+  const [allPokemons, setAllPokemons] = useState<Pokemon[]>([]);
   const [loadMore, setLoadMore] = useState(
     "https://pokeapi.co/api/v2/pokemon?limit=20"
   );
 
   const getAllPokemons = async () => {
     const res = await fetch(loadMore);
-    const data = await res.json();
+    const data: { next: string; results: Pokemon[]} = await res.json();
 
     setLoadMore(data.next);
 
-    function createPokemonObject(results) {
+    function createPokemonObject(results: Pokemon[]) {
       results.forEach(async (pokemon) => {
         const res = await fetch(
           `https://pokeapi.co/api/v2/pokemon/${pokemon.name}`
@@ -57,9 +66,7 @@ const App = () => {
                   image={pokemonStats.sprites.other.dream_world.front_default}
                   name={pokemonStats.name}
                   type={pokemonStats.types[0].type.name}
-                  weight={pokemonStats.weight}
-                  height={pokemonStats.height}
-                  isExpended={isExpanded}
+                  isExpanded={isExpanded}
                   toggleDetailsId={toggleDetailsId}
                 />
 
