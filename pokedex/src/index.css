@@ -141,6 +141,11 @@ h3 {
   width: 25vw;
 }
 
+.img {
+  width: 10vw;
+  height: 10vh;
+}
+
 .details {
   position: fixed;
   inset: 0px;
