@@ -8,8 +8,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: black;
+  color: white;
 }
-
+.dark-mode {
+  background-color: white;
+  color: black;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -123,4 +128,20 @@ h3 {
   padding: 0.5rem 1.5rem;
   min-width: 50%;
   margin-top: 1rem;
+}
+
+.dialog {
+  position: fixed;
+  top: 20vh;
+  bottom: 20vh;
+  width: 30vw;
+}
+
+.details {
+  position: fixed;
+  inset: 0px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.img {
 }
