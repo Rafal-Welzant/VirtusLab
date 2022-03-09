@@ -20,7 +20,7 @@ export const PokemonCard = ({ pokemonName }: Props) => {
   }, [pokemonName]);
 
   if (pokemon === null) {
-    return <>Loading....</>;
+    return <div className="thumb-container">Loading....</div>;
   }
 
   return (
@@ -47,6 +47,7 @@ export const PokemonCard = ({ pokemonName }: Props) => {
             <img
               className="img"
               src={pokemon.sprites.other.dream_world.front_default}
+              alt="pokemon avatar"
             ></img>
             <br></br>
             Weight: {pokemon.weight}

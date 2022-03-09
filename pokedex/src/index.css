@@ -92,6 +92,7 @@ code {
   border: 1px solid #efefef;
   border-radius: 0.2rem;
   min-width: 160px;
+  min-height: 280px;
   text-align: center;
   box-shadow: 0 3px 15px rgba(0, 0, 0, 0.089);
 }

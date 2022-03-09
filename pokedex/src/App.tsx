@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import { PokemonCard } from "./components/PokemonCard";
 
 export type Pokemon = {
@@ -10,27 +10,44 @@ export type Pokemon = {
   height: number;
 };
 
+const firstPageUrl = "https://pokeapi.co/api/v2/pokemon?limit=20"
+
 const App = () => {
-  const [allPokemons, setAllPokemons] = useState<Pokemon[]>([]);
-  const [loadMore, setLoadMore] = useState(
-    "https://pokeapi.co/api/v2/pokemon?limit=20"
+  const [allPokemons, setAllPokemons] = useState<null | Pokemon[]>(null);
+  const [nextPageUrl, setNextPageUrl] = useState<string | undefined>(
+    undefined
   );
+  const [error, setError] = useState<null | Error>(null)
 
-  const getAllPokemons = async () => {
-    const res = await fetch(loadMore);
-    const data: { next: string; results: Pokemon[] } = await res.json();
+  const isFetching = useRef(false);
 
-    setLoadMore(data.next);
-
-    setAllPokemons(old => [...old, ...data.results])
-  };
+  const getAllPokemons = useCallback(async (pageUrl = firstPageUrl) => {
+    if (isFetching.current === true) {
+      return;
+    }
+    isFetching.current = true;
+    try {
+      setError(null);
+      const res = await fetch(pageUrl);
+      const data: { next: string; results: Pokemon[] } = await res.json();
+      setNextPageUrl(data.next);
+      setAllPokemons(old => [...(old || []), ...data.results])
+    } catch (error) {
+      setError(error)
+    } finally {
+      isFetching.current = false;
+    }  
+  }, []);
+  
   const changeTheme = () => {
     let element = document.body;
     element.classList.toggle("dark-mode");
   };
+
   useEffect(() => {
     getAllPokemons();
-  }, []);
+  }, [getAllPokemons]);
+
   return (
     <div className="container">
       <button className="themeButton" onClick={() => changeTheme()}>
@@ -39,15 +56,17 @@ const App = () => {
       <img
         className="logo"
         src="https://images.wikidexcdn.net/mwuploads/esssbwiki/7/77/latest/20111028181540/TituloUniversoPok%C3%A9mon.png"
+        alt=""
       />
       <div className="pokemon-container">
         <div className="all-container">
-          {allPokemons.map((pokemonStats, index) => {
+          {error && <p>Loading error :(</p>}
+          {!error && allPokemons === null ? <p>Loading...</p> : allPokemons?.map((pokemonStats, index) => {
             
-            return <PokemonCard pokemonName={pokemonStats.name} />
+            return <PokemonCard key={index} pokemonName={pokemonStats.name} />
           })}
         </div>
-        <button className="load-more" onClick={() => getAllPokemons()}>
+        <button className="load-more" onClick={() => getAllPokemons(nextPageUrl)}>
           Load more
         </button>
       </div>
